@@ -40,6 +40,8 @@ c11.addEventListener("click", function() { revealCard(11); });
 var oneVisible = false;
 var TurnCounter = 0;
 
+// This funcion lets me reveal each card 
+
 function revealCard(num) {
     //alert(num)
     var picture = "url(img/" + cards[num] + ")";
