@@ -40,15 +40,19 @@ c11.addEventListener("click", function() { revealCard(11); });
 var oneVisible = false;
 var turnCounter = 0;
 var visibleNumber;
-
+var lock = false;
 // This funcion lets me reveal each card 
 
 function revealCard(num) {
 
     var opacityValue = $('#c' +num).css('opacity');
     
-    if(opacityValue !=0) {
-        //alert(num)
+    // below condition solving a problem when clickig in place where card with opacity = 0 (turnCounter  doesn't count this)
+
+    if(opacityValue !=0 && lock == false) {
+    lock = true;
+        
+    //alert(num)
     var picture = "url(img/" + cards[num] + ")";
     $('#c' + num).css('background-image', picture);
     $('#c' + num).addClass('cardActive');
@@ -58,6 +62,7 @@ function revealCard(num) {
         // first card
         oneVisible = true;
         visibleNumber = num;
+        lock = false;
     }
     else {
         // second card
@@ -70,6 +75,7 @@ function revealCard(num) {
         }
         else {
             // alert('miss');
+            setTimeout(function() {restore2Cards(num, visibleNumber)}, 1000);
         }
 
 
@@ -77,16 +83,29 @@ function revealCard(num) {
         $('.score').html('Turn counter: ' +turnCounter);
         oneVisible = false;
     }
-
-
-    
-    
-    
-   
-       // if two cards match, they will be hidden
-    function hide2Cards(nr1, nr2) {
-        $("#c" + nr1).css('opacity', '0');
-        $("#c" + nr2).css('opacity', '0');
     }
 }
+
+
+    
+        // if two cards match, they will be hidden
+     function hide2Cards(nr1, nr2) {
+        $("#c" + nr1).css('opacity', '0');
+        $("#c" + nr2).css('opacity', '0');
+
+        lock = false;
+    }
+    
+    // function restore cards if they don't match
+
+function restore2Cards(nr1, nr2){
+    $('#c' + nr1).css('background-image', 'url(img/card.png)');
+    $('#c' + nr1).addClass('card');
+    $('#c' + nr1).removeClass('cardActive');
+
+    $('#c' + nr2).css('background-image', 'url(img/card.png)');
+    $('#c' + nr2).addClass('card');
+    $('#c' + nr2).removeClass('cardActive');
+
+    lock = false;
 }
