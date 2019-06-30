@@ -1,9 +1,9 @@
 // cards array contains name of all characters
-var cards  = ["ciri.png", "geralt.png", "jaskier.png", "jaskier.png", "iorewth.png", "triss.png", "geralt.png", "yen.png", "ciri.png", "triss.png", "yen.png", "iorweth.png"];
+var cards  = ["ciri.png", "geralt.png", "jaskier.png", "jaskier.png", "iorweth.png", "triss.png", "geralt.png", "yen.png", "ciri.png", "triss.png", "yen.png", "iorweth.png"];
 // console.log(cards);
 
 
-//catch every cardvby Id
+//catch every card by Id
 var c0 = document.getElementById('c0');
 var c1 = document.getElementById('c1');
 var c2 = document.getElementById('c2');
@@ -37,8 +37,11 @@ c10.addEventListener("click", function() { revealCard(10); });
 c11.addEventListener("click", function() { revealCard(11); });
 
 
-
+var oneVisible = false;
+var TurnCounter = 0;
 
 function revealCard(num) {
-    alert(num)
+    //alert(num)
+    var picture = "url(img/" + cards[num] + ")";
+    $('#c' + num).css('background-image', picture);
 }
