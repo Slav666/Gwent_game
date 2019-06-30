@@ -38,7 +38,7 @@ c11.addEventListener("click", function() { revealCard(11); });
 
 
 var oneVisible = false;
-var TurnCounter = 0;
+var turnCounter = 0;
 
 // This funcion lets me reveal each card 
 
@@ -49,4 +49,14 @@ function revealCard(num) {
     $('#c' + num).addClass('cardActive');
     $('#c' + num).removeClass('card');
 
+    if(oneVisible == false){
+        // first card
+        oneVisible = true;
+    }
+    else {
+        // second card
+        turnCounter++;
+        $('.score').html('Turn counter: ' +turnCounter);
+        oneVisible = false;
+    }
 }
