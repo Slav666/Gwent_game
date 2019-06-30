@@ -44,7 +44,11 @@ var visibleNumber;
 // This funcion lets me reveal each card 
 
 function revealCard(num) {
-    //alert(num)
+
+    var opacityValue = $('#c' +num).css('opacity');
+    
+    if(opacityValue !=0) {
+        //alert(num)
     var picture = "url(img/" + cards[num] + ")";
     $('#c' + num).css('background-image', picture);
     $('#c' + num).addClass('cardActive');
@@ -74,9 +78,15 @@ function revealCard(num) {
         oneVisible = false;
     }
 
+
+    
+    
+    
+   
        // if two cards match, they will be hidden
     function hide2Cards(nr1, nr2) {
         $("#c" + nr1).css('opacity', '0');
         $("#c" + nr2).css('opacity', '0');
     }
+}
 }
