@@ -41,64 +41,78 @@ var oneVisible = false;
 var turnCounter = 0;
 var visibleNumber;
 var lock = false;
-// This funcion lets me reveal each card 
+var pairLeft = 6;
 
-function revealCard(num) {
+// This funcion lets me reveal each card 
+function revealCard(num) 
+{
 
     var opacityValue = $('#c' +num).css('opacity');
     
     // below condition solving a problem when clickig in place where card with opacity = 0 (turnCounter  doesn't count this)
-
-    if(opacityValue !=0 && lock == false) {
-    lock = true;
+    // condition lock == false is to avoid situation when a user can fast click on other cards before pair cards process finished
+    if(opacityValue !=0 && lock == false) 
+    {
+        lock = true;
         
-    //alert(num)
-    var picture = "url(img/" + cards[num] + ")";
-    $('#c' + num).css('background-image', picture);
-    $('#c' + num).addClass('cardActive');
-    $('#c' + num).removeClass('card');
+        //alert(num)
+        var picture = "url(img/" + cards[num] + ")";
+        $('#c' + num).css('background-image', picture);
+        $('#c' + num).addClass('cardActive');
+        $('#c' + num).removeClass('card');
 
-    if(oneVisible == false){
+        if(oneVisible == false)
+        {
         // first card
         oneVisible = true;
         visibleNumber = num;
         lock = false;
-    }
-    else {
-        // second card
+        }
+        else 
+        {
+            // second card
 
-        //  below condition checks that we have found card with the same characters
-        if(cards[visibleNumber] == cards[num]) {
+            //  below condition checks that we have found card with the same characters
+            if(cards[visibleNumber] == cards[num]) 
+            {
             // alert('pair');
             setTimeout(function() {hide2Cards(num, visibleNumber)}, 750);
             
-        }
-        else {
+            }
+            else 
+            {
             // alert('miss');
             setTimeout(function() {restore2Cards(num, visibleNumber)}, 1000);
+            }   
+
+            turnCounter++;
+            $('.score').html('Turn counter: ' +turnCounter);
+            oneVisible = false;
         }
-
-
-        turnCounter++;
-        $('.score').html('Turn counter: ' +turnCounter);
-        oneVisible = false;
-    }
     }
 }
 
 
     
-        // if two cards match, they will be hidden
-     function hide2Cards(nr1, nr2) {
-        $("#c" + nr1).css('opacity', '0');
-        $("#c" + nr2).css('opacity', '0');
+// if two cards match, they will be hidden
+function hide2Cards(nr1, nr2) 
+{
+    $("#c" + nr1).css('opacity', '0');
+    $("#c" + nr2).css('opacity', '0');
+     pairLeft--;
+        // If pairLeft = 0 finish
+     if(pairLeft ==0) 
+     {
+        $('.board').html('<h1>You win! <br> Done in' + turnCounter+ 'turns</h1>');
+     }
 
-        lock = false;
-    }
+    lock = false;
+}
     
-    // function restore cards if they don't match
+// function restore cards if two cards don't match
 
-function restore2Cards(nr1, nr2){
+function restore2Cards(nr1, nr2)
+{
     $('#c' + nr1).css('background-image', 'url(img/card.png)');
     $('#c' + nr1).addClass('card');
     $('#c' + nr1).removeClass('cardActive');
