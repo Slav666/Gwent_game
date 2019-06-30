@@ -39,6 +39,7 @@ c11.addEventListener("click", function() { revealCard(11); });
 
 var oneVisible = false;
 var turnCounter = 0;
+var visibleNumber;
 
 // This funcion lets me reveal each card 
 
@@ -52,11 +53,30 @@ function revealCard(num) {
     if(oneVisible == false){
         // first card
         oneVisible = true;
+        visibleNumber = num;
     }
     else {
         // second card
+
+        //  below condition checks that we have found card with the same characters
+        if(cards[visibleNumber] == cards[num]) {
+            // alert('pair');
+            setTimeout(function() {hide2Cards(num, visibleNumber)}, 750);
+            
+        }
+        else {
+            // alert('miss');
+        }
+
+
         turnCounter++;
         $('.score').html('Turn counter: ' +turnCounter);
         oneVisible = false;
+    }
+
+       // if two cards match, they will be hidden
+    function hide2Cards(nr1, nr2) {
+        $("#c" + nr1).css('opacity', '0');
+        $("#c" + nr2).css('opacity', '0');
     }
 }
